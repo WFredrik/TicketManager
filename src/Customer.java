@@ -1,4 +1,5 @@
 class Customer {
+
     enum EType {PRIVATE, RANDOM, COMPANY,}
 
     private int id;
@@ -20,7 +21,6 @@ class Customer {
 
         return String.valueOf(sb);
     }
-
     public int getId() {
         return id;
     }
@@ -48,14 +48,12 @@ class Customer {
     public Seat[] getSeats() {
         return seats;
     }
-
     public void setSeats(Seat[] seats, EType eType) {
         this.seats = seats;
         for (Seat seat : seats) {
-            seat.setSeatState(eType == EType.RANDOM ? Seat.SEATSTATE.randomReserved : Seat.SEATSTATE.reserved);
+            seat.setSeatState(eType == EType.RANDOM ? Seat.STATE.randomReserved : Seat.STATE.reserved);
         }
     }
-
     public void setSeats(Seat[] seats) {
         if (this.eType == EType.PRIVATE && seats.length > 1) {
             throw new IllegalArgumentException("Invalid parameter passed to Customer.setSeats: seats should have a length of 1");
@@ -74,7 +72,6 @@ class Customer {
     Customer() {
         this.setSeats(new Seat[0]);
     }
-
     public static class Private extends Customer {
         Private() {
             super();
@@ -104,7 +101,6 @@ class Customer {
         public void setContactPerson(String contactPerson) {
             this.contactPerson = contactPerson;
         }
-
     }
 
 }

@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.List;
 
 public class Theatre {
@@ -7,9 +8,10 @@ public class Theatre {
     Gui gui;
     private int[] rowSeatCount;
 
+
     public Theatre(String name) {
-        gui = new Gui();
         this.name = name;
+        gui = new Gui(this);
         rowSeatCount = new int[]{15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15};
         sections[0] = new Section(0, "Hoved", rowSeatCount);
         list = Customers.getDummyData();
@@ -26,7 +28,14 @@ public class Theatre {
                 r[rowNdx].seats[seatNdx] = customerSeat;
             }
         }
+
+        gui.showSeatPanel(sections[0]);
+
         Debug.console(this.toString());
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override

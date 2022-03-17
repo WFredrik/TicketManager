@@ -1,11 +1,16 @@
+import javax.swing.*;
+
 public class Section {
     Row[] rows;
     String name;
-    int rowCount;
+    private int rowCount;
+    private int[] rowSeatCount;
+    JPanel seatsPanel;
 
     Section(int section, String name, int[] rowSeatCount) {
         this.name = name;
         this.rowCount = rowSeatCount.length;
+        this.rowSeatCount = rowSeatCount;
         rows = new Row[this.rowCount];
         for (int i = 0; i < rowCount; i++) {
             int seatCount = rowSeatCount[i];
@@ -57,4 +62,23 @@ public class Section {
         return String.valueOf(sb);
     }
 
+    public Row[] getRows() {
+        return rows;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public JPanel getSeatsPanel() {
+        return seatsPanel;
+    }
+
+    int getRowCount() {
+        return rowCount;
+    }
+
+    int getSeatCount(int rowNdx) {
+        return rowSeatCount[rowNdx];
+    }
 }
