@@ -11,6 +11,8 @@ public class Gui extends GuiBase {
     Theatre theatre;
     JPanel leftPanel;
 
+    private Section[] sections;
+
     static class CircleButton extends JPanel {
         private final int square = 13;
         private final Section section;
@@ -27,6 +29,10 @@ public class Gui extends GuiBase {
             this.backgroundColor = color;
             JLabel jLabel = new JLabel();
         }
+    }
+
+    public void setSections(Section[] sections) {
+        this.sections = sections;
     }
 
     private static final Map<Color, ShapeIcon> Icons = new HashMap<>();
@@ -69,6 +75,7 @@ public class Gui extends GuiBase {
 
         static class background {
             static Color seatsPanel = Color.white;
+            static Color seats = new Color(0, 200, 100);
         }
 
         static class pos {
@@ -114,7 +121,7 @@ public class Gui extends GuiBase {
         leftPanel.setName("Left Panel");
         leftPanel.setBounds(C.pos.leftPanel.x, C.pos.leftPanel.y, C.width.leftPanel, C.height.leftPanel);
         leftPanel.setBackground(C.color.leftPanel);
-        leftPanel.add(new JLabel("Sander Jevnaker"));
+        //leftPanel.add(new JLabel("Sander Jevnaker"));
 
         JPanel rightPanel = new JPanel();
         rightPanel.setName("Right Panel");
@@ -172,7 +179,6 @@ public class Gui extends GuiBase {
         informPanel.add(label);
     }
 
-
     private JPanel makeContent(JPanel leftPanel, JPanel rightPanel) {
         makeConstraints(0, 0);
         GridBagLayout gbl = new GridBagLayout();
@@ -188,8 +194,13 @@ public class Gui extends GuiBase {
         return panel;
     }
 
-    void showSeatPanel(Section section) {
-        JPanel panel = SectionMain.getInstance().render(this.theatre, section);
-        leftPanel.add(panel);
+    void showSeats() {
+        Debug.console("Gui.showSeats");
+
+        leftPanel.removeAll();
+        for (Section section : sections) {
+            section.render(theatre, section);
+            leftPanel.add(section.seatsPanel);
+        }
     }
 }

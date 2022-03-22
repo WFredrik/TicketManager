@@ -1,5 +1,4 @@
 # TicketManager
-
 Ticket manager for theater
 
 **Oppgave 1 Modellklasser**
@@ -10,7 +9,6 @@ I denne oppgaven skal du bestemme og lage modellklassene for programmet basert p
 - Hvert sete er unikt identifisert med rad- og setenummer
 
 Det finnes tre forskjellige typer «kunder» i teateret:
-
 - Tilfeldige:
     - Dette er kunder som ringer og reserverer <u>ett eller flere seter</u> per telefon
     - For hver tilfeldige kunde skal det lagres navn og telefonnummer, samt hvilke seter som er bestilt
