@@ -29,7 +29,7 @@ public class Seat {
         return seatNdx;
     }
 
-    public STATE getSeatState() {
+    public STATE getState() {
         return seatState;
     }
 
@@ -49,7 +49,7 @@ public class Seat {
         this.seatNdx = seatNdx;
     }
 
-    public void setSeatState(STATE seatState) {
+    public void setState(STATE seatState) {
         this.seatState = seatState;
     }
 

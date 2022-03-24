@@ -5,7 +5,7 @@ class Customer {
     private int id;
     private String name;
     private String phoneNumber;
-    private Seat seats[];
+    private Seat seats[] = new Seat[0]; // NB! Avoid null
     private EType eType;
 
     @Override
@@ -33,18 +33,12 @@ class Customer {
         }
     }
 
-    Customer copy(EType eType) {
-        // TODO: Explain and create factory method (static)
-        Customer customer = Customer.factory(eType);
-        if (eType == EType.PRIVATE) {
-            customer = new Customer.Private();
-        } else if (eType == EType.COMPANY) {
-            customer = new Customer.Company();
-            ((Company) customer).contactPerson = ((Company) this).contactPerson;
-        } else if (eType == EType.RANDOM) {
-            customer = new Customer.Random();
-        }
+    Customer copy() {
+        return copy(eType);
+    }
 
+    Customer copy(EType eType) {
+        Customer customer = Customer.factory(eType);
         customer.id = id;
         customer.name = name;
         customer.phoneNumber = phoneNumber;
@@ -55,20 +49,15 @@ class Customer {
         return customer;
     }
 
-    Seat[] copySeats(Seat[] seats) {
-        Seat[] newSeats = new Seat[seats.length];
+    void copySeats(Seat[] seats) {
+        this.seats = new Seat[seats.length];
         for (int i = 0; i < seats.length; i++) {
-            newSeats[i] = seats[i].copy(this);
+            this.seats[i] = seats[i].copy(this);
         }
-        return newSeats;
     }
 
     public int getId() {
         return id;
-    }
-
-    public Seat[] getSeats() {
-        return seats;
     }
 
     public String getName() {
@@ -79,36 +68,31 @@ class Customer {
         return phoneNumber;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-
-    public void setSeats(Seat[] seats) {
-        assert this.eType == EType.PRIVATE && seats.length > 1;
-        this.seats = seats;
+    public Seat[] getSeats() {
+        return seats;
     }
 
     public EType getEType() {
         return eType;
     }
 
-    public void setEType(EType eType) {
-        this.eType = eType;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    Customer() {
-        this.setSeats(new Seat[0]);
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+    public void setSeats(Seat[] seats) {
+        assert this.eType == EType.PRIVATE && seats.length > 1;
+        this.seats = seats;
+    }
+    public void setEType(EType eType) {
+        this.eType = eType;
     }
 
     public static class Private extends Customer {
@@ -141,6 +125,4 @@ class Customer {
             this.contactPerson = contactPerson;
         }
     }
-
-
 }

@@ -26,8 +26,13 @@ public class Gui extends GuiBase {
             this.rowNdx = rowNdx;
             this.seatNdx = seatNdx;
             this.color = color;
-            this.backgroundColor = color;
-            JLabel jLabel = new JLabel();
+            //this.backgroundColor = color;
+            this.backgroundColor = getBackground(); // Save existing background-color
+            //JLabel jLabel = new JLabel(); // Very empty!
+            // TR 21.03, added rest
+            JLabel jLabel = new JLabel(Icons.get(color));
+            jLabel.setPreferredSize(new Dimension(square, square));
+            this.add(jLabel);
         }
     }
 
@@ -121,7 +126,6 @@ public class Gui extends GuiBase {
         leftPanel.setName("Left Panel");
         leftPanel.setBounds(C.pos.leftPanel.x, C.pos.leftPanel.y, C.width.leftPanel, C.height.leftPanel);
         leftPanel.setBackground(C.color.leftPanel);
-        //leftPanel.add(new JLabel("Sander Jevnaker"));
 
         JPanel rightPanel = new JPanel();
         rightPanel.setName("Right Panel");
@@ -139,7 +143,7 @@ public class Gui extends GuiBase {
 
 
         frame.setPreferredSize(new Dimension(C.width.frame, C.height.frame));
-        frame.setLocation(160, 120);
+        frame.setLocation(40, 40);
 
         frame.setContentPane(makeBase());
 
@@ -200,7 +204,9 @@ public class Gui extends GuiBase {
         leftPanel.removeAll();
         for (Section section : sections) {
             section.render(theatre, section);
+            // TODO: BUG - seat.customer and seat.seatState not set
             leftPanel.add(section.seatsPanel);
         }
+        frame.pack();
     }
 }

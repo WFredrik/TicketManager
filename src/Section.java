@@ -8,14 +8,14 @@ public abstract class Section implements SectionInterface {
     JPanel seatsPanel;
 
     // TODO: Implement SEATCATEGORY
-    Section(int section, String name, int[] rowSeatCount) {
+    Section(int id, String name, int[] rowSeatCount) {
         this.name = name;
         this.rowCount = rowSeatCount.length;
         this.rowSeatCount = rowSeatCount;
         rows = new Row[this.rowCount];
         for (int i = 0; i < rowCount; i++) {
             int seatCount = rowSeatCount[i];
-            rows[i] = new Row(section, i, seatCount);
+            rows[i] = new Row(id, i, seatCount);
         }
     }
 
