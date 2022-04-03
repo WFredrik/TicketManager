@@ -28,6 +28,7 @@ public class Debug {
         }
         debugAtive = isActive != null && isActive.matches("true");
     }
+
     static void console(String msg) {
         if (debugAtive) {
             System.out.println(msg);

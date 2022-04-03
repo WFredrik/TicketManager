@@ -1,4 +1,3 @@
-import java.util.List;
 
 /**
  * Oppgave 1a

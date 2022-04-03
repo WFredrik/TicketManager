@@ -3,9 +3,9 @@ import java.util.List;
 
 public class Theatre {
     private final String name;
-    private Section[] sections;
+    public Section[] sections;
     private List<Customer> customers;
-    private Gui gui;
+    public Gui gui;
     private int[] rowSeatCount;
 
     public Theatre(String name) {
@@ -15,6 +15,7 @@ public class Theatre {
         load(true);
         //Debug.console(this.toString());
     }
+
 
     String getName() {
         return name;
@@ -40,6 +41,7 @@ public class Theatre {
         }
         gui.setSections(sections);
         gui.showSeats();
+        gui.loadCustomerTable(0);
     }
 
     @Override

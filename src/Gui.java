@@ -10,10 +10,13 @@ public class Gui extends GuiBase {
     JFrame frame;
     Theatre theatre;
     JPanel leftPanel;
+    JPanel rightPanel;
+    CustomerTable customerTable;
 
     private Section[] sections;
 
     static class CircleButton extends JPanel {
+        private int id;
         private final int square = 13;
         private final Section section;
         private final int rowNdx;
@@ -22,6 +25,7 @@ public class Gui extends GuiBase {
         private final Color backgroundColor;
 
         CircleButton(Section section, int rowNdx, int seatNdx, Color color) {
+            this.id = section.getId();
             this.section = section;
             this.rowNdx = rowNdx;
             this.seatNdx = seatNdx;
@@ -34,6 +38,18 @@ public class Gui extends GuiBase {
             jLabel.setPreferredSize(new Dimension(square, square));
             this.add(jLabel);
         }
+
+        int getSectionNdx() {
+            return id;
+        }
+
+        int getRowNdx() {
+            return rowNdx;
+        }
+
+        int getSeatNdx() {
+            return seatNdx;
+        }
     }
 
     public void setSections(Section[] sections) {
@@ -45,10 +61,10 @@ public class Gui extends GuiBase {
 
     static class C {
         static class height {
-            static int frame = 658;
+            static int frame = 688;
             static int topPanel = 30;
-            static int leftPanel = 540;
-            static int rightPanel = 540;
+            static int leftPanel = 570;
+            static int rightPanel = 570;
             static int informPanel = 30;
             static int bottomPanel = 30;
             static int seat = 19;      // Height for seat-panels
@@ -84,7 +100,7 @@ public class Gui extends GuiBase {
         }
 
         static class pos {
-            static Point frame = new Point(40, 40);
+            static Point frame = new Point(0, 40);
             static Point topPanel = new Point(40, 60);
             static Point leftPanel = new Point(0, 30);
             static Point rightPanel = new Point(550, 30);
@@ -120,14 +136,14 @@ public class Gui extends GuiBase {
         informPanel.setName("Inform Panel");
         informPanel.setBounds(C.pos.informPanel.x, C.pos.informPanel.y, C.width.informPanel, C.height.informPanel);
         informPanel.setBackground(C.color.informPanel);
-        inform("Kim the Controller makes a comeback");
+        informPanel.add(new JLabel());
 
         leftPanel = new JPanel();
         leftPanel.setName("Left Panel");
         leftPanel.setBounds(C.pos.leftPanel.x, C.pos.leftPanel.y, C.width.leftPanel, C.height.leftPanel);
         leftPanel.setBackground(C.color.leftPanel);
 
-        JPanel rightPanel = new JPanel();
+        rightPanel = new JPanel();
         rightPanel.setName("Right Panel");
         rightPanel.setBounds(C.pos.rightPanel.x, C.pos.rightPanel.y, C.width.rightPanel, C.height.rightPanel);
         rightPanel.setBackground(C.color.rightPanel);
@@ -143,7 +159,7 @@ public class Gui extends GuiBase {
 
 
         frame.setPreferredSize(new Dimension(C.width.frame, C.height.frame));
-        frame.setLocation(40, 40);
+        frame.setLocation(C.pos.frame.x, C.pos.frame.y);
 
         frame.setContentPane(makeBase());
 
@@ -162,6 +178,13 @@ public class Gui extends GuiBase {
         frame.pack();
     }
 
+    void loadCustomerTable(Integer selectedRow) {
+
+        Debug.console("Gui.loadCustomerTable");
+        customerTable = new CustomerTable(theatre, selectedRow);
+    }
+
+
     private JPanel makeBase() {
         GridBagLayout gblFrame = new GridBagLayout();
         gblFrame.rowHeights = new int[]{C.height.topPanel, C.height.informPanel, C.height.leftPanel, C.height.bottomPanel};
@@ -177,10 +200,11 @@ public class Gui extends GuiBase {
         return jPanel;
     }
 
-    private void inform(String msg) {
-        JLabel label = new JLabel(msg);
+    public void inform(String msg) {
+        ((JLabel) informPanel.getComponent(0)).setText(msg);
+/*        JLabel label = new JLabel(msg);
         informPanel.removeAll();
-        informPanel.add(label);
+        informPanel.add(label);   */
     }
 
     private JPanel makeContent(JPanel leftPanel, JPanel rightPanel) {
@@ -209,4 +233,5 @@ public class Gui extends GuiBase {
         }
         frame.pack();
     }
+
 }

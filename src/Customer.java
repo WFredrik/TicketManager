@@ -1,6 +1,61 @@
-class Customer {
+import java.util.Arrays;
 
+class Customer {
     enum EType {FREE, PRIVATE, RANDOM, COMPANY,}
+
+
+    static String[] ddChoices = new String[]{"Random", "Private", "Company"};
+
+    static class Type {
+
+        static int getIndex(String ddType) {
+            return Arrays.asList(ddChoices).indexOf(ddType);
+        }
+
+        static EType getEtype(String strType) {
+            switch (strType) {
+                case "Private":
+                    return EType.PRIVATE;
+                case "Company":
+                    return EType.COMPANY;
+                default:
+                    return EType.RANDOM; // "Random"
+            }
+        }
+
+        static String getDdText(EType eType) {
+            switch (eType) {
+                case PRIVATE:
+                    return "Private";
+                case COMPANY:
+                    return "Company";
+                default:
+                    return "Random";    // Random:
+            }
+        }
+
+        static EType getDdEType(String ddType) {
+            switch (ddType) {
+                case "Private":
+                    return EType.PRIVATE;
+                case "Company":
+                    return EType.COMPANY;
+                default:
+                    return EType.RANDOM; // "Tilfeldig"
+            }
+        }
+
+        static String get(EType eType) {
+            switch (eType) {
+                case PRIVATE:
+                    return "Private";
+                case COMPANY:
+                    return "Company";
+                default:
+                    return "Random"; // Random
+            }
+        }
+    }
 
     private int id;
     private String name;
@@ -60,6 +115,10 @@ class Customer {
         return id;
     }
 
+    public String getContact() {
+        return getContact();
+    }
+
     public String getName() {
         return name;
     }
@@ -87,10 +146,12 @@ class Customer {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
     public void setSeats(Seat[] seats) {
         assert this.eType == EType.PRIVATE && seats.length > 1;
         this.seats = seats;
     }
+
     public void setEType(EType eType) {
         this.eType = eType;
     }

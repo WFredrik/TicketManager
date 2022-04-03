@@ -1,14 +1,17 @@
 import javax.swing.*;
 
 public abstract class Section implements SectionInterface {
+    private int id;
     private final String name;
     private final Row[] rows;
     private final int rowCount;
     private final int[] rowSeatCount;
     JPanel seatsPanel;
 
+
     // TODO: Implement SEATCATEGORY
     Section(int id, String name, int[] rowSeatCount) {
+        this.id = id;
         this.name = name;
         this.rowCount = rowSeatCount.length;
         this.rowSeatCount = rowSeatCount;
@@ -63,12 +66,17 @@ public abstract class Section implements SectionInterface {
         return String.valueOf(sb);
     }
 
+
     public Row[] getRows() {
         return rows;
     }
 
     public String getName() {
         return name;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public JPanel getSeatsPanel() {
